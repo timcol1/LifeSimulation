@@ -3,9 +3,15 @@ package avlyakulov.timur.simulation.objects.unmovable;
 import avlyakulov.timur.simulation.entity.Entity;
 
 public class Tree extends Entity {
-    public static final String TREE_ICON = "\uD83C\uDF33";
 
-    public String getTreeIcon() {
-        return TREE_ICON;
+    private static int numberTrees = 5;
+
+    public static int getNumberTrees() {
+        return numberTrees;
+    }
+
+    @Override
+    public String toString() {
+        return "\uD83C\uDF33";
     }
 }

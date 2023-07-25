@@ -1,15 +1,20 @@
 package avlyakulov.timur.simulation.objects.animals;
 
 public class Fox extends Creature {
-    public static final String FOX_ICON = "\uD83E\uDD8A";
-
+    private static int numberFoxes = 3;
+    private int damage;
 
     @Override
     void makeMove() {
 
     }
 
-    public String getFoxIcon() {
-        return FOX_ICON;
+    public static int getNumberFoxes() {
+        return numberFoxes;
+    }
+
+    @Override
+    public String toString() {
+        return "\uD83E\uDD8A";
     }
 }

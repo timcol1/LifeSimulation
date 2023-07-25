@@ -3,10 +3,15 @@ package avlyakulov.timur.simulation.objects.unmovable;
 import avlyakulov.timur.simulation.entity.Entity;
 
 public class Rock extends Entity {
-    public static final String ROCK_ICON = "\uD83E\uDEA8";
 
-    public String getRockIcon() {
-        return ROCK_ICON;
+    private static int numberRocks = 6;
+
+    public static int getNumberRocks() {
+        return numberRocks;
     }
 
+    @Override
+    public String toString() {
+        return "\uD83E\uDEA8";
+    }
 }
