@@ -8,8 +8,9 @@ import java.util.Map;
 public class Simulation {
 
 
-    public void gameFieldRender() {
-        Map<Point, Entity> gameMap = new GameMap(4, 4).fillMap();
-        System.out.println(gameMap);
+    public void gameStartSimulation() {
+        GameMap gameMapUtil = new GameMap(8,8);
+        Map<Point, Entity> gameMap = gameMapUtil.fillMap();
+        gameMapUtil.printMap(gameMap);
     }
 }
