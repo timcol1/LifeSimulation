@@ -94,4 +94,19 @@ public class GameMap {
             System.out.println();
         }
     }
+
+    public void makeTurn(Map<Point, Entity> gameMap) {
+        for (int i = 0; i < maxLengthX; ++i) {
+            for (int j = 0; j < maxLengthY; ++j) {
+                Entity entity = gameMap.get(new Point(i, j));
+                if (entity instanceof Fox) {
+                    if (gameMap.get(new Point(i + 1, j)) instanceof Air) {
+                        Point pointAir = new Point(i, j);
+                        gameMap.put(new Point(i + 1, j), entity);
+                        gameMap.put(pointAir, new Air());
+                    }
+                }
+            }
+        }
+    }
 }
