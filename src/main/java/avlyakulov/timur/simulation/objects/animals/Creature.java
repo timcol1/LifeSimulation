@@ -9,5 +9,5 @@ public abstract class Creature extends Entity {
     private int speed;
     private int hp;
 
-    abstract void makeMove(Map<Point, ? extends Entity> gameMap, Point point);
+    public abstract void makeMove(Map<Point, ? extends Entity> gameMap, Point point);
 }
