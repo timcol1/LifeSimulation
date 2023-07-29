@@ -9,8 +9,13 @@ public class Simulation {
 
 
     public void gameStartSimulation() {
-        GameMap gameMapUtil = new GameMap(8,8);
+        GameMap gameMapUtil = new GameMap(8, 8);
         Map<Point, Entity> gameMap = gameMapUtil.fillMap();
         gameMapUtil.printMap(gameMap);
+    }
+
+
+    public void wordSimulation(Map<Point, Entity> gameMap) {
+
     }
 }

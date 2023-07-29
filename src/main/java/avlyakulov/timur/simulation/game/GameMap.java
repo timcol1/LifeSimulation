@@ -28,7 +28,6 @@ public class GameMap {
 
     public Map<Point, Entity> fillMap() {
         Map<Point, Entity> gameMap = new HashMap<>();
-        int totalNumberOfCells = maxLengthX * maxLengthY;
         List<Entity> listEntities = List.of(new Fox(), new Pig(), new Apple(), new Rock(), new Tree());
         for (Entity entity : listEntities) {
             if (entity instanceof Fox) {
@@ -89,24 +88,9 @@ public class GameMap {
     public void printMap(Map<Point, Entity> gameMap) {
         for (int i = 0; i < maxLengthX; ++i) {
             for (int j = 0; j < maxLengthY; ++j) {
-                System.out.print(gameMap.getOrDefault(new Point(i, j), new Air()) + " ");
+                System.out.printf("%s\t", gameMap.getOrDefault(new Point(i, j), new Air()));
             }
             System.out.println();
-        }
-    }
-
-    public void makeTurn(Map<Point, Entity> gameMap) {
-        for (int i = 0; i < maxLengthX; ++i) {
-            for (int j = 0; j < maxLengthY; ++j) {
-                Entity entity = gameMap.get(new Point(i, j));
-                if (entity instanceof Fox) {
-                    if (gameMap.get(new Point(i + 1, j)) instanceof Air) {
-                        Point pointAir = new Point(i, j);
-                        gameMap.put(new Point(i + 1, j), entity);
-                        gameMap.put(pointAir, new Air());
-                    }
-                }
-            }
         }
     }
 }
