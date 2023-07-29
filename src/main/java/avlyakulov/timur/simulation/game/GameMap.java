@@ -5,7 +5,6 @@ import avlyakulov.timur.simulation.entity.Point;
 import avlyakulov.timur.simulation.objects.animals.Fox;
 import avlyakulov.timur.simulation.objects.animals.Pig;
 import avlyakulov.timur.simulation.objects.resource.Apple;
-import avlyakulov.timur.simulation.objects.unmovable.Air;
 import avlyakulov.timur.simulation.objects.unmovable.Rock;
 import avlyakulov.timur.simulation.objects.unmovable.Tree;
 
@@ -26,7 +25,7 @@ public class GameMap {
         this.maxLengthY = maxLengthY;
     }
 
-    public Map<Point, Entity> fillMap() {
+    public Map<Point, ? extends Entity> fillMap() {
         Map<Point, Entity> gameMap = new HashMap<>();
         List<Entity> listEntities = List.of(new Fox(), new Pig(), new Apple(), new Rock(), new Tree());
         for (Entity entity : listEntities) {
@@ -36,7 +35,7 @@ public class GameMap {
                     int x = random.nextInt(maxLengthX);
                     int y = random.nextInt(maxLengthY);
                     if (!gameMap.containsKey(new Point(x, y))) {
-                        gameMap.put(new Point(x, y), new Fox());
+                        gameMap.put(new Point(x, y), entity);
                         ++counter;
                     }
                 }
@@ -46,7 +45,7 @@ public class GameMap {
                     int x = random.nextInt(maxLengthX);
                     int y = random.nextInt(maxLengthY);
                     if (!gameMap.containsKey(new Point(x, y))) {
-                        gameMap.put(new Point(x, y), new Pig());
+                        gameMap.put(new Point(x, y), entity);
                         ++counter;
                     }
                 }
@@ -56,7 +55,7 @@ public class GameMap {
                     int x = random.nextInt(maxLengthX);
                     int y = random.nextInt(maxLengthY);
                     if (!gameMap.containsKey(new Point(x, y))) {
-                        gameMap.put(new Point(x, y), new Apple());
+                        gameMap.put(new Point(x, y), entity);
                         ++counter;
                     }
                 }
@@ -66,17 +65,17 @@ public class GameMap {
                     int x = random.nextInt(maxLengthX);
                     int y = random.nextInt(maxLengthY);
                     if (!gameMap.containsKey(new Point(x, y))) {
-                        gameMap.put(new Point(x, y), new Rock());
+                        gameMap.put(new Point(x, y), entity);
                         ++counter;
                     }
                 }
-            } else {
+            } else if (entity instanceof Tree) {
                 int counter = 0;
                 while (counter < Tree.getNumberTrees()) {
                     int x = random.nextInt(maxLengthX);
                     int y = random.nextInt(maxLengthY);
                     if (!gameMap.containsKey(new Point(x, y))) {
-                        gameMap.put(new Point(x, y), new Tree());
+                        gameMap.put(new Point(x, y), entity);
                         ++counter;
                     }
                 }
@@ -88,7 +87,11 @@ public class GameMap {
     public void printMap(Map<Point, Entity> gameMap) {
         for (int i = 0; i < maxLengthX; ++i) {
             for (int j = 0; j < maxLengthY; ++j) {
-                System.out.printf("%s\t", gameMap.getOrDefault(new Point(i, j), new Air()));
+                if (gameMap.containsKey(new Point(i, j)))
+                    System.out.printf("%s\t", gameMap.get(new Point(i, j)));
+                else {
+                    System.out.printf(".\t");
+                }
             }
             System.out.println();
         }

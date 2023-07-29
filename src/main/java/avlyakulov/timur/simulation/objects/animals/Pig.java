@@ -10,21 +10,19 @@ public class Pig extends Creature {
 
     private static int numberPigs = 4;
 
-    @Override
-    void makeMove(Map<Point, Entity> gameMap) {
-        for (Entity entity : gameMap.values()) {
-            if (entity instanceof Pig) {
-
-            }
-        }
-    }
-
     public static int getNumberPigs() {
         return numberPigs;
+    }
+
+    @Override
+    public void makeMove(Map<Point, ? extends Entity> gameMap, Point point) {
+
     }
 
     @Override
     public String toString() {
         return "\uD83D\uDC37";
     }
+
+
 }
