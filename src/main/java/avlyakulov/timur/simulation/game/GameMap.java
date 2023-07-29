@@ -25,7 +25,7 @@ public class GameMap {
         this.maxLengthY = maxLengthY;
     }
 
-    public Map<Point, ? extends Entity> fillMap() {
+    public Map<Point, Entity> fillMap() {
         Map<Point, Entity> gameMap = new HashMap<>();
         List<Entity> listEntities = List.of(new Fox(), new Pig(), new Apple(), new Rock(), new Tree());
         for (Entity entity : listEntities) {

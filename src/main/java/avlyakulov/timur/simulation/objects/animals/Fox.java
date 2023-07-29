@@ -10,7 +10,7 @@ public class Fox extends Creature {
     private int damage;
 
     @Override
-    public void makeMove(Map<Point, ? extends Entity> gameMap, Point point) {
+    public void makeMove(Map<Point, Entity> gameMap, Point point) {
 
     }
 
