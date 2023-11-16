@@ -6,19 +6,21 @@ import avlyakulov.timur.simulation.entity.Point;
 import java.util.Map;
 
 public class Fox extends Creature {
-    private static int numberFoxes = 3;
+
+
 
     @Override
-    public void makeMove(Map<Point, Entity> gameMap) {
+    public void makeMove(Map<Point, Entity> gameMap, Point point) {
 
-    }
-
-    public static int getNumberFoxes() {
-        return numberFoxes;
     }
 
     @Override
     public String toString() {
         return "\uD83E\uDD8A";
+    }
+
+    @Override
+    public int getNumberOfEntity() {
+        return 3;
     }
 }

@@ -27,49 +27,9 @@ public class GameMap {
 
     public Map<Point, Entity> fillMap() {
         Map<Point, Entity> gameMap = new HashMap<>();
-        List<Entity> listEntities = List.of(new Fox(), new Pig(), new Apple(), new Rock(), new Tree());
+        List<Entity> listEntities = getListEntities();
         for (Entity entity : listEntities) {
-            if (entity instanceof Fox) {
-                for (int i = 0; i < Fox.getNumberFoxes(); ++i) {
-                    int x = random.nextInt(maxLengthX);
-                    int y = random.nextInt(maxLengthY);
-                    if (!gameMap.containsKey(new Point(x, y))) {
-                        gameMap.put(new Point(x, y), entity);
-                    }
-                }
-            } else if (entity instanceof Pig) {
-                for (int i = 0; i < Pig.getNumberPigs(); i++) {
-                    int x = random.nextInt(maxLengthX);
-                    int y = random.nextInt(maxLengthY);
-                    if (!gameMap.containsKey(new Point(x, y))) {
-                        gameMap.put(new Point(x, y), entity);
-                    }
-                }
-            } else if (entity instanceof Apple) {
-                for (int i = 0; i < Apple.getNumberApples(); ++i) {
-                    int x = random.nextInt(maxLengthX);
-                    int y = random.nextInt(maxLengthY);
-                    if (!gameMap.containsKey(new Point(x, y))) {
-                        gameMap.put(new Point(x, y), entity);
-                    }
-                }
-            } else if (entity instanceof Rock) {
-                for (int i = 0; i < Rock.getNumberRocks(); ++i) {
-                    int x = random.nextInt(maxLengthX);
-                    int y = random.nextInt(maxLengthY);
-                    if (!gameMap.containsKey(new Point(x, y))) {
-                        gameMap.put(new Point(x, y), entity);
-                    }
-                }
-            } else if (entity instanceof Tree) {
-                for (int i = 0; i < Tree.getNumberTrees(); ++i) {
-                    int x = random.nextInt(maxLengthX);
-                    int y = random.nextInt(maxLengthY);
-                    if (!gameMap.containsKey(new Point(x, y))) {
-                        gameMap.put(new Point(x, y), entity);
-                    }
-                }
-            }
+            fillEntityInGameMap(entity, gameMap);
         }
         return gameMap;
     }
@@ -84,6 +44,39 @@ public class GameMap {
                 }
             }
             System.out.println();
+        }
+    }
+
+    private Point generatePointForSetCreatureToMap() {
+        return new Point(random.nextInt(maxLengthX), random.nextInt(maxLengthY));
+    }
+
+    private List<Entity> getListEntities() {
+        return List.of(new Fox(), new Pig(), new Apple(), new Rock(), new Tree());
+    }
+
+    private void fillEntityInGameMap(Entity entity, Map<Point, Entity> gameMap) {
+        if (entity instanceof Fox fox) {
+            addEntityToMap(fox, gameMap);
+        } else if (entity instanceof Pig pig) {
+            addEntityToMap(pig, gameMap);
+        } else if (entity instanceof Apple apple) {
+            addEntityToMap(apple, gameMap);
+        } else if (entity instanceof Rock rock) {
+            addEntityToMap(rock, gameMap);
+        } else if (entity instanceof Tree tree) {
+            addEntityToMap(tree, gameMap);
+        }
+    }
+
+    public void addEntityToMap(Entity entity, Map<Point, Entity> gameMap) {
+        int counter = 0;
+        while (counter != entity.getNumberOfEntity()) {
+            Point point = generatePointForSetCreatureToMap();
+            if (!gameMap.containsKey(point)) {
+                gameMap.put(point, entity);
+                ++counter;
+            }
         }
     }
 }

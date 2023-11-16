@@ -22,8 +22,15 @@ public class Simulation {
     public void wordSimulation(Map<Point, Entity> gameMap) {
         for (Entity entity : gameMap.values()) {
             if (entity instanceof Creature creature) {
-                creature.makeMove(gameMap);
+
+                Point point = forEntityCreatePointToMove(gameMap, creature);
+                creature.makeMove(gameMap, point);
             }
         }
+    }
+
+    public Point forEntityCreatePointToMove(Map<Point, Entity> gameMap, Creature creature) {
+
+        return null;
     }
 }

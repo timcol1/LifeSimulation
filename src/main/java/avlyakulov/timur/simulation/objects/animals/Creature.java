@@ -7,5 +7,5 @@ import java.util.Map;
 
 public abstract class Creature extends Entity {
 
-    public abstract void makeMove(Map<Point, Entity> gameMap);
+    public abstract void makeMove(Map<Point, Entity> gameMap, Point point);
 }

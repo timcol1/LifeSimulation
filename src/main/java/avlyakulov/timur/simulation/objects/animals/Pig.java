@@ -7,19 +7,19 @@ import java.util.Map;
 
 public class Pig extends Creature {
 
-    private final static int numberPigs = 4;
-
-    public static int getNumberPigs() {
-        return numberPigs;
-    }
 
     @Override
-    public void makeMove(Map<Point, Entity> gameMap) {
+    public void makeMove(Map<Point, Entity> gameMap, Point point) {
 
     }
 
     @Override
     public String toString() {
         return "\uD83D\uDC37";
+    }
+
+    @Override
+    public int getNumberOfEntity() {
+        return 4;
     }
 }
