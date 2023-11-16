@@ -6,19 +6,16 @@ import avlyakulov.timur.simulation.entity.Point;
 import java.util.Map;
 
 public class Pig extends Creature {
-    private int damage;
 
-    private static int numberPigs = 4;
+    private final static int numberPigs = 4;
 
     public static int getNumberPigs() {
         return numberPigs;
     }
 
     @Override
-    public void makeMove(Map<Point, Entity> gameMap, Point point) {
-        Point futurePoint = new Point(point.getX(), point.getY() + 1);
-        gameMap.put(futurePoint, gameMap.get(point));
-        gameMap.remove(point);
+    public void makeMove(Map<Point, Entity> gameMap) {
+
     }
 
     @Override

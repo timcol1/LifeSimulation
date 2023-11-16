@@ -30,53 +30,43 @@ public class GameMap {
         List<Entity> listEntities = List.of(new Fox(), new Pig(), new Apple(), new Rock(), new Tree());
         for (Entity entity : listEntities) {
             if (entity instanceof Fox) {
-                int counter = 0;
-                while (counter < Fox.getNumberFoxes()) {
+                for (int i = 0; i < Fox.getNumberFoxes(); ++i) {
                     int x = random.nextInt(maxLengthX);
                     int y = random.nextInt(maxLengthY);
                     if (!gameMap.containsKey(new Point(x, y))) {
                         gameMap.put(new Point(x, y), entity);
-                        ++counter;
                     }
                 }
             } else if (entity instanceof Pig) {
-                int counter = 0;
-                while (counter < Pig.getNumberPigs()) {
+                for (int i = 0; i < Pig.getNumberPigs(); i++) {
                     int x = random.nextInt(maxLengthX);
                     int y = random.nextInt(maxLengthY);
                     if (!gameMap.containsKey(new Point(x, y))) {
                         gameMap.put(new Point(x, y), entity);
-                        ++counter;
                     }
                 }
             } else if (entity instanceof Apple) {
-                int counter = 0;
-                while (counter < Apple.getNumberApples()) {
+                for (int i = 0; i < Apple.getNumberApples(); ++i) {
                     int x = random.nextInt(maxLengthX);
                     int y = random.nextInt(maxLengthY);
                     if (!gameMap.containsKey(new Point(x, y))) {
                         gameMap.put(new Point(x, y), entity);
-                        ++counter;
                     }
                 }
             } else if (entity instanceof Rock) {
-                int counter = 0;
-                while (counter < Rock.getNumberRocks()) {
+                for (int i = 0; i < Rock.getNumberRocks(); ++i) {
                     int x = random.nextInt(maxLengthX);
                     int y = random.nextInt(maxLengthY);
                     if (!gameMap.containsKey(new Point(x, y))) {
                         gameMap.put(new Point(x, y), entity);
-                        ++counter;
                     }
                 }
             } else if (entity instanceof Tree) {
-                int counter = 0;
-                while (counter < Tree.getNumberTrees()) {
+                for (int i = 0; i < Tree.getNumberTrees(); ++i) {
                     int x = random.nextInt(maxLengthX);
                     int y = random.nextInt(maxLengthY);
                     if (!gameMap.containsKey(new Point(x, y))) {
                         gameMap.put(new Point(x, y), entity);
-                        ++counter;
                     }
                 }
             }
@@ -90,7 +80,7 @@ public class GameMap {
                 if (gameMap.containsKey(new Point(i, j)))
                     System.out.printf("%s\t", gameMap.get(new Point(i, j)));
                 else {
-                    System.out.printf(".\t");
+                    System.out.print(".\t");
                 }
             }
             System.out.println();

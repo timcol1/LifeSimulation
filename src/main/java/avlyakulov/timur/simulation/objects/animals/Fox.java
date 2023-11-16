@@ -7,10 +7,9 @@ import java.util.Map;
 
 public class Fox extends Creature {
     private static int numberFoxes = 3;
-    private int damage;
 
     @Override
-    public void makeMove(Map<Point, Entity> gameMap, Point point) {
+    public void makeMove(Map<Point, Entity> gameMap) {
 
     }
 
