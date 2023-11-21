@@ -1,4 +1,4 @@
-package avlyakulov.timur.others.alg.tic_tac;
+package avlyakulov.timur.others.tic_tac;
 
 import java.util.*;
 
