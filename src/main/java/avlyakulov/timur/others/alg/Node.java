@@ -1,4 +1,4 @@
-package avlyakulov.timur.simulation.alg;
+package avlyakulov.timur.others.alg;
 
 public class Node {
     int value;
