@@ -8,16 +8,15 @@ import avlyakulov.timur.simulation.objects.resource.Apple;
 import avlyakulov.timur.simulation.objects.unmovable.Rock;
 import avlyakulov.timur.simulation.objects.unmovable.Tree;
 
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
 public class GameMap {
-    private Random random = new Random();
-    private int maxLengthX;
-    private int maxLengthY;
+    private final Random random = new Random();
+    private final int maxLengthX;
+    private final int maxLengthY;
 
 
     public GameMap(int maxLengthX, int maxLengthY) {
@@ -35,10 +34,11 @@ public class GameMap {
     }
 
     public void printMap(Map<Point, Entity> gameMap) {
-        for (int i = 0; i < maxLengthX; ++i) {
-            for (int j = 0; j < maxLengthY; ++j) {
-                if (gameMap.containsKey(new Point(i, j)))
-                    System.out.printf("%s\t", gameMap.get(new Point(i, j)));
+        for (int x = 0; x < maxLengthX; ++x) {
+            for (int y = 0; y < maxLengthY; ++y) {
+                Point point = new Point(x, y);
+                if (gameMap.containsKey(point))
+                    System.out.printf("%s\t", gameMap.get(point));
                 else {
                     System.out.print(".\t");
                 }

@@ -10,11 +10,11 @@ public class Simulation {
 
 
     public void gameStartSimulation() {
-        GameMap gameMapUtil = new GameMap(8, 8);
+        GameMap gameMapUtil = new GameMap(10, 10);
         Map<Point, Entity> gameMap = gameMapUtil.fillMap();
         gameMapUtil.printMap(gameMap);
         wordSimulation(gameMap);
-        System.out.println("----------------------");
+        System.out.println("--------------------------------------");
         gameMapUtil.printMap(gameMap);
     }
 
@@ -22,9 +22,14 @@ public class Simulation {
     public void wordSimulation(Map<Point, Entity> gameMap) {
         for (Entity entity : gameMap.values()) {
             if (entity instanceof Creature creature) {
-
                 Point point = forEntityCreatePointToMove(gameMap, creature);
                 creature.makeMove(gameMap, point);
+            }
+        }
+
+        for (Map.Entry<Point, Entity> entry : gameMap.entrySet()) {
+            if (entry.getValue() instanceof Creature) {
+                System.out.println(entry.getValue() + " his coordinate " + entry.getKey());
             }
         }
     }
