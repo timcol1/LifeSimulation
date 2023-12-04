@@ -5,8 +5,8 @@ public class BinaryTree {
 
     public Node addRecursiveToTree(Node current, int value) {
         if (current == null) {
-            return new Node(value);//когда текущий узел равен нулю, мы достигли
-            // конечного узла и можем вставить новый узел в эту позицию.
+            return new Node(value);//когда текущий узел равен нулю, мы достигли конечного узла
+            // и можем вставить новый узел в эту позицию.
         }
         if (value < current.value) {
             current.left = addRecursiveToTree(current.left, value);//если наш вставляемый узел меньше корня
@@ -15,7 +15,6 @@ public class BinaryTree {
         } else {
             return current;//if this value is exists
         }
-
         return current;
     }
 
