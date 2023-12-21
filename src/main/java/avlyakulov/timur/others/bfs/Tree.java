@@ -19,7 +19,7 @@ public class Tree<T> {
     //добавления элемента в наше дерево
     public Tree<T> addChild(T value) {
         Tree<T> newChild = new Tree<>(value);
-        children.add(newChild);
+        this.children.add(newChild);
         return newChild;
     }
 
@@ -39,11 +39,11 @@ public class Tree<T> {
     }
 
     public T getValue() {
-        return value;
+        return this.value;
     }
 
     public List<Tree<T>> getChildren() {
-        return children;
+        return this.children;
     }
 
     @Override
@@ -54,15 +54,6 @@ public class Tree<T> {
     }
 
     public static void main(String[] args) {
-        Tree<Integer> root = Tree.of(10);
-        Tree<Integer> rootFirstChild = root.addChild(2);
-        Tree<Integer> firstChildChild = rootFirstChild.addChild(3);
-        Tree<Integer> firstChildChild1 = firstChildChild.addChild(5);
-        Tree<Integer> rootSecondChild = root.addChild(4);
-        Tree<Integer> child = rootSecondChild.addChild(6);
-        Optional<Tree<Integer>> search = Tree.search(4, root);
-        System.out.println(search.get().getChildren());
-
 
     }
 }
