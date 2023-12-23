@@ -1,4 +1,4 @@
-package avlyakulov.timur.others.bfs;
+package avlyakulov.timur.others.bfs.tree;
 
 public class Main {
     public static void main(String[] args) {
