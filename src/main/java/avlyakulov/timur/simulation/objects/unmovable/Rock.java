@@ -3,6 +3,8 @@ package avlyakulov.timur.simulation.objects.unmovable;
 import avlyakulov.timur.simulation.entity.Entity;
 
 public class Rock extends Entity {
+    private final int NUMBER_OF_ROCK = 4;
+
 
     @Override
     public String toString() {
@@ -11,6 +13,6 @@ public class Rock extends Entity {
 
     @Override
     public int getNumberOfEntity() {
-        return 6;
+        return NUMBER_OF_ROCK;
     }
 }

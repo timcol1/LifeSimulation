@@ -3,7 +3,7 @@ package avlyakulov.timur.simulation.objects.unmovable;
 import avlyakulov.timur.simulation.entity.Entity;
 
 public class Tree extends Entity {
-
+    private final int NUMBER_OF_TREE = 4;
     @Override
     public String toString() {
         return "\uD83C\uDF33";
@@ -11,6 +11,6 @@ public class Tree extends Entity {
 
     @Override
     public int getNumberOfEntity() {
-        return 5;
+        return NUMBER_OF_TREE;
     }
 }

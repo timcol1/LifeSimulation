@@ -13,7 +13,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-public class GameMap {
+public class GameMap{
+
     private final Random random = new Random();
     private final int maxLengthX;
     private final int maxLengthY;
@@ -56,16 +57,16 @@ public class GameMap {
     }
 
     private void fillEntityInGameMap(Entity entity, Map<Point, Entity> gameMap) {
-        if (entity instanceof Fox fox) {
-            addEntityToMap(fox, gameMap);
-        } else if (entity instanceof Pig pig) {
+        if (entity instanceof Pig pig) {
             addEntityToMap(pig, gameMap);
+//        } else if (entity instanceof Fox fox) {
+//            addEntityToMap(fox, gameMap);
         } else if (entity instanceof Apple apple) {
             addEntityToMap(apple, gameMap);
-        } else if (entity instanceof Rock rock) {
-            addEntityToMap(rock, gameMap);
-        } else if (entity instanceof Tree tree) {
-            addEntityToMap(tree, gameMap);
+//        } else if (entity instanceof Rock rock) {
+//            addEntityToMap(rock, gameMap);
+//        } else if (entity instanceof Tree tree) {
+//            addEntityToMap(tree, gameMap);
         }
     }
 
@@ -79,4 +80,5 @@ public class GameMap {
             }
         }
     }
+
 }
