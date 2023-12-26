@@ -9,8 +9,10 @@ public class Pig extends Creature {
     private final int NUMBER_OF_PIG = 1;
 
     @Override
-    public void makeMove(Map<Point, Entity> gameMap, Point point) {
-
+    public void makeMove(Map<Point, Entity> gameMap, Point pointIterate, Point pointToMove) {
+        Entity pig = gameMap.get(pointIterate);
+        gameMap.put(pointToMove, pig);
+        gameMap.remove(pointIterate);
     }
 
     @Override

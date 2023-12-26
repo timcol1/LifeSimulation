@@ -10,7 +10,7 @@ public class Fox extends Creature {
     private final int NUMBER_OF_FOX = 3;
 
     @Override
-    public void makeMove(Map<Point, Entity> gameMap, Point point) {
+    public void makeMove(Map<Point, Entity> gameMap, Point pointIterate, Point pointToMove) {
 
     }
 
