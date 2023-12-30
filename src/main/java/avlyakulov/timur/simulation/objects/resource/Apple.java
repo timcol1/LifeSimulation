@@ -3,7 +3,7 @@ package avlyakulov.timur.simulation.objects.resource;
 import avlyakulov.timur.simulation.entity.Entity;
 
 public class Apple extends Entity {
-    private final int NUMBER_OF_APPLE = 1;
+    private final int NUMBER_OF_APPLE = 4;
 
 
     @Override
