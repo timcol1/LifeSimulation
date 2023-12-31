@@ -51,15 +51,15 @@ public class Simulation {
         }
     }
 
-    public Point forEntityCreatePointToMove(Point start, Map<Point, Entity> gameMap, Creature creature) {
+    public Point forEntityCreatePointToMove(Point pointOfCreature, Map<Point, Entity> gameMap, Creature creature) {
         // 1 - it is Pig ; 2 - it is Fox
         int typeOfCreature = checkTypeOfCreature(creature);
         switch (typeOfCreature) {
             case 1 -> {
-                return findPointForPig(start, gameMap);
+                return findPointForCreature(pointOfCreature, gameMap, Apple.class);
             }
             case 2 -> {
-                return findPointForFox(start, gameMap);
+                return findPointForCreature(pointOfCreature, gameMap, Pig.class);
             }
             default -> throw new RuntimeException("Something went wrong in checking type of animal");
         }
@@ -69,9 +69,8 @@ public class Simulation {
         return creature instanceof Pig ? 1 : 2;
     }
 
-    public Point findPointForPig(Point start, Map<Point, Entity> gameMap) {
-
-        List<Point> validNeighborsOfPoints = getValidNeighborsOfPoints(start, gameMap);
+    public <T> Point findPointForCreature(Point pointOfCreature, Map<Point, Entity> gameMap, Class<T> targetOnTheMap) {
+        List<Point> validNeighborsOfPoints = getValidNeighborsOfPoints(pointOfCreature, gameMap);
         Queue<Point> queue = new ArrayDeque<>(validNeighborsOfPoints);
         Queue<Point> alreadyVisited = new ArrayDeque<>();
 
@@ -85,10 +84,10 @@ public class Simulation {
         // y == j and x > i строго вниз
         while (!queue.isEmpty()) {
             Point possiblePoint = queue.remove();
-            if (gameMap.get(possiblePoint) instanceof Apple) {
+            if (targetOnTheMap.isInstance(gameMap.get(possiblePoint))) {
                 alreadyVisited.add(possiblePoint);
-                Map<String, Point> validNeighborsOfPointInMapRepresentation = getValidNeighborsOfPointInMapRepresentation(start, gameMap);
-                return choosePointForMoveFromDirections(start, possiblePoint, validNeighborsOfPointInMapRepresentation);
+                Map<String, Point> validNeighborsOfPointInMapRepresentation = getValidNeighborsOfPointInMapRepresentation(pointOfCreature, gameMap);
+                return choosePointForMoveFromDirections(pointOfCreature, possiblePoint, validNeighborsOfPointInMapRepresentation);
             } else {
                 alreadyVisited.add(possiblePoint);
                 validNeighborsOfPoints = getValidNeighborsOfPoints(possiblePoint, gameMap);
@@ -100,16 +99,16 @@ public class Simulation {
     }
 
 
-    public List<Point> getNeighborsOfPoint(Point start) {
+    public List<Point> getNeighborsOfPoint(Point pointOfCreature) {
         //какой тут алгоритм определение соседей:
         //1) берем правого соседа
         //2) берем нижнего соседа
         //3) берем левого соседа
         //4) берем верхнего соседа
-        Point point = new Point(start.getX(), start.getY() + 1);//вправо
-        Point point2 = new Point(start.getX() + 1, start.getY());//вниз
-        Point point3 = new Point(start.getX(), start.getY() - 1);//влево
-        Point point4 = new Point(start.getX() - 1, start.getY());//вверх
+        Point point = new Point(pointOfCreature.getX(), pointOfCreature.getY() + 1);//вправо
+        Point point2 = new Point(pointOfCreature.getX() + 1, pointOfCreature.getY());//вниз
+        Point point3 = new Point(pointOfCreature.getX(), pointOfCreature.getY() - 1);//влево
+        Point point4 = new Point(pointOfCreature.getX() - 1, pointOfCreature.getY());//вверх
         return List.of(point, point2, point3, point4);
     }
 
@@ -143,19 +142,19 @@ public class Simulation {
     // y == j and x > i строго вниз
     public Point choosePointForMoveFromDirections(Point start, Point toMove, Map<String, Point> neighbors) {
         if (toMove.getY() > start.getY()) {
-            return choosePointWithDirection("right", neighbors, start);
+            return choosePointWithDirection("right", neighbors);
         } else if (toMove.getY() < start.getY()) {
-            return choosePointWithDirection("left", neighbors, start);
+            return choosePointWithDirection("left", neighbors);
         } else if (toMove.getY() == start.getY() && toMove.getX() < start.getX()) {
-            return choosePointWithDirection("up", neighbors, start);
+            return choosePointWithDirection("up", neighbors);
         } else if (toMove.getY() == start.getY() && toMove.getX() > start.getX()) {
-            return choosePointWithDirection("down", neighbors, start);
+            return choosePointWithDirection("down", neighbors);
         } else {
             throw new RuntimeException("No path was chosen to go something went wrong...");
         }
     }
 
-    public Point choosePointWithDirection(String direction, Map<String, Point> neighbors, Point current) {
+    public Point choosePointWithDirection(String direction, Map<String, Point> neighbors) {
         switch (direction) {
             case "right", "left", "up", "down" -> {
                 Point point = neighbors.get(direction);
@@ -169,15 +168,13 @@ public class Simulation {
                     return point;
                 }
             }
-            default -> {
-                throw new RuntimeException("No direction was given");
-            }
+            default -> throw new RuntimeException("No direction was given");
         }
     }
 
 
-    public List<Point> getValidNeighborsOfPoints(Point start, Map<Point, Entity> gameMap) {
-        List<Point> allNeighborsOfPoint = getNeighborsOfPoint(start);
+    public List<Point> getValidNeighborsOfPoints(Point pointOfCreature, Map<Point, Entity> gameMap) {
+        List<Point> allNeighborsOfPoint = getNeighborsOfPoint(pointOfCreature);
 
         List<Point> validPoints = new ArrayList<>();
 
@@ -190,15 +187,12 @@ public class Simulation {
     }
 
 
-    public Point findPointForFox(Point start, Map<Point, Entity> gameMap) {
-        return null;
-    }
-
     public boolean isPointPossible(Point point) {
         return (point.getX() >= 0 && point.getY() >= 0 && point.getX() <= maxLengthX - 1 && point.getY() <= maxLengthY - 1);
     }
 
     public boolean isPointNotOccupied(Point point, Map<Point, Entity> gameMap) {
+        //todo fix because fox can't find pig it skips it
         Entity entity = gameMap.get(point);
         if (entity instanceof Fox || entity instanceof Rock || entity instanceof Tree || entity instanceof Pig) {
             return false;

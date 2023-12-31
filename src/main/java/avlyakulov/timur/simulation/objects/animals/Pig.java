@@ -7,7 +7,7 @@ import avlyakulov.timur.simulation.objects.resource.Apple;
 import java.util.Map;
 
 public class Pig extends Creature {
-    private final int NUMBER_OF_PIG = 3;
+    private final int NUMBER_OF_PIG = 1;
 
     @Override
     public void makeMove(Map<Point, Entity> gameMap, Point pointIterate, Point pointToMove) {
