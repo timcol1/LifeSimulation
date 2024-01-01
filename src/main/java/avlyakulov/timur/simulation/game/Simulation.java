@@ -120,16 +120,16 @@ public class Simulation {
         //4) берем верхнего соседа
         Map<String, Point> neighborsWithDirections = new HashMap<>();
         List<Point> neighborsOfPoint = getNeighborsOfPoint(start);
-        if (isPointPossible(neighborsOfPoint.get(0)) && isPointNotOccupied(neighborsOfPoint.get(0), gameMap)) {
+        if (isPointPossible(neighborsOfPoint.get(0)) && isPointNotOccupied(gameMap.get(neighborsOfPoint.get(0)))) {
             neighborsWithDirections.put("right", neighborsOfPoint.get(0));
         }
-        if (isPointPossible(neighborsOfPoint.get(1)) && isPointNotOccupied(neighborsOfPoint.get(1), gameMap)) {
+        if (isPointPossible(neighborsOfPoint.get(1)) && isPointNotOccupied(gameMap.get(neighborsOfPoint.get(1)))) {
             neighborsWithDirections.put("down", neighborsOfPoint.get(1));
         }
-        if (isPointPossible(neighborsOfPoint.get(2)) && isPointNotOccupied(neighborsOfPoint.get(2), gameMap)) {
+        if (isPointPossible(neighborsOfPoint.get(2)) && isPointNotOccupied(gameMap.get(neighborsOfPoint.get(2)))) {
             neighborsWithDirections.put("left", neighborsOfPoint.get(2));
         }
-        if (isPointPossible(neighborsOfPoint.get(3)) && isPointNotOccupied(neighborsOfPoint.get(3), gameMap)) {
+        if (isPointPossible(neighborsOfPoint.get(3)) && isPointNotOccupied(gameMap.get(neighborsOfPoint.get(3)))) {
             neighborsWithDirections.put("up", neighborsOfPoint.get(3));
         }
         return neighborsWithDirections;
@@ -158,6 +158,7 @@ public class Simulation {
         switch (direction) {
             case "right", "left", "up", "down" -> {
                 Point point = neighbors.get(direction);
+                //todo отфиксить для свиньи возможные пути как обойти препятствие
                 if (point == null) {
                     List<Point> possibleNeighbors = new ArrayList<>(neighbors.values());
                     int size = possibleNeighbors.size();
@@ -179,7 +180,7 @@ public class Simulation {
         List<Point> validPoints = new ArrayList<>();
 
         for (Point point : allNeighborsOfPoint) {
-            if (isPointPossible(point) && isPointNotOccupied(point, gameMap)) {
+            if (isPointPossible(point) && isPointNotOccupied(gameMap.get(point))) {
                 validPoints.add(point);
             }
         }
@@ -191,9 +192,8 @@ public class Simulation {
         return (point.getX() >= 0 && point.getY() >= 0 && point.getX() <= maxLengthX - 1 && point.getY() <= maxLengthY - 1);
     }
 
-    public boolean isPointNotOccupied(Point point, Map<Point, Entity> gameMap) {
+    public boolean isPointNotOccupied(Entity entity) {
         //todo fix because fox can't find pig it skips it
-        Entity entity = gameMap.get(point);
         if (entity instanceof Fox || entity instanceof Rock || entity instanceof Tree || entity instanceof Pig) {
             return false;
         } else {
