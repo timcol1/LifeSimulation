@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class Fox extends Creature {
 
-    private final int NUMBER_OF_FOX = 2;
+    private final int NUMBER_OF_FOX = 0;
 
     @Override
     public void makeMove(Map<Point, Entity> gameMap, Point pointIterate, Point pointToMove) {
