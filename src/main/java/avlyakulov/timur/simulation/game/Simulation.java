@@ -14,8 +14,8 @@ import java.util.*;
 public class Simulation {
     //todo отфиксить то что в конце все свиньи становятся в 1 клетку
 
-    private final static int maxLengthX = 4;
-    private final static int maxLengthY = 4;
+    private final static int maxLengthX = 10;
+    private final static int maxLengthY = 10;
 
 
     //как нужно сделать
@@ -25,10 +25,7 @@ public class Simulation {
 
     public void gameStartSimulation() {
         GameMap gameMapUtil = new GameMap(maxLengthX, maxLengthY);
-        //Map<Point, Entity> gameMap = gameMapUtil.fillMap();
-        Map<Point, Entity> gameMap = new HashMap<>();
-        gameMap.put(new Point(0,0), new Pig());
-        gameMap.put(new Point(0,2), new Apple());
+        Map<Point, Entity> gameMap = gameMapUtil.fillMap();
         System.out.println("Simulations begins");
         startSimulation(gameMapUtil, gameMap);
         System.out.println("The simulation is over");
@@ -73,7 +70,7 @@ public class Simulation {
     }
 
     public <T> Point findPointForCreature(Point pointOfCreature, Map<Point, Entity> gameMap, Class<T> targetOnTheMap) {
-        List<Point> validNeighborsOfPoints = getValidNeighborsOfPoints(pointOfCreature, gameMap);
+        List<Point> validNeighborsOfPoints = getValidNeighborsOfPoints(pointOfCreature, gameMap, targetOnTheMap);
         Queue<Point> queue = new ArrayDeque<>(validNeighborsOfPoints);
         Queue<Point> alreadyVisited = new ArrayDeque<>();
 
@@ -87,19 +84,18 @@ public class Simulation {
         // y == j and x > i строго вниз
         while (!queue.isEmpty()) {
             Point possiblePoint = queue.remove();
-            Entity possibleEntity = gameMap.get(possiblePoint);
             if (gameMap.get(possiblePoint) != null && targetOnTheMap.isInstance(gameMap.get(possiblePoint))) {
                 alreadyVisited.add(possiblePoint);
-                Map<String, Point> validNeighborsOfPointInMapRepresentation = getValidNeighborsOfPointInMapRepresentation(pointOfCreature, gameMap);
+                Map<String, Point> validNeighborsOfPointInMapRepresentation = getValidNeighborsOfPointInMapRepresentation(pointOfCreature, gameMap, targetOnTheMap);
                 return choosePointForMoveFromDirections(pointOfCreature, possiblePoint, validNeighborsOfPointInMapRepresentation);
             } else {
                 alreadyVisited.add(possiblePoint);
-                validNeighborsOfPoints = getValidNeighborsOfPoints(possiblePoint, gameMap);
+                validNeighborsOfPoints = getValidNeighborsOfPoints(possiblePoint, gameMap, targetOnTheMap);
                 queue.addAll(validNeighborsOfPoints);
                 queue.removeAll(alreadyVisited);
             }
         }
-        return null;
+        return pointOfCreature;
     }
 
 
@@ -116,7 +112,7 @@ public class Simulation {
         return List.of(point, point2, point3, point4);
     }
 
-    public Map<String, Point> getValidNeighborsOfPointInMapRepresentation(Point start, Map<Point, Entity> gameMap) {
+    public <T> Map<String, Point> getValidNeighborsOfPointInMapRepresentation(Point start, Map<Point, Entity> gameMap, Class<T> targetOnTheMap) {
         //какой тут алгоритм определение соседей:
         //1) берем правого соседа
         //2) берем нижнего соседа
@@ -124,16 +120,16 @@ public class Simulation {
         //4) берем верхнего соседа
         Map<String, Point> neighborsWithDirections = new HashMap<>();
         List<Point> neighborsOfPoint = getNeighborsOfPoint(start);
-        if (isPointPossible(neighborsOfPoint.get(0)) && isPointNotOccupied(gameMap.get(neighborsOfPoint.get(0)), gameMap.get(start))) {
+        if (isPointPossible(neighborsOfPoint.get(0)) && isPointNotOccupied(gameMap.get(neighborsOfPoint.get(0)), targetOnTheMap)) {
             neighborsWithDirections.put("right", neighborsOfPoint.get(0));
         }
-        if (isPointPossible(neighborsOfPoint.get(1)) && isPointNotOccupied(gameMap.get(neighborsOfPoint.get(1)), gameMap.get(start))) {
+        if (isPointPossible(neighborsOfPoint.get(1)) && isPointNotOccupied(gameMap.get(neighborsOfPoint.get(1)), targetOnTheMap)) {
             neighborsWithDirections.put("down", neighborsOfPoint.get(1));
         }
-        if (isPointPossible(neighborsOfPoint.get(2)) && isPointNotOccupied(gameMap.get(neighborsOfPoint.get(2)), gameMap.get(start))) {
+        if (isPointPossible(neighborsOfPoint.get(2)) && isPointNotOccupied(gameMap.get(neighborsOfPoint.get(2)), targetOnTheMap)) {
             neighborsWithDirections.put("left", neighborsOfPoint.get(2));
         }
-        if (isPointPossible(neighborsOfPoint.get(3)) && isPointNotOccupied(gameMap.get(neighborsOfPoint.get(3)), gameMap.get(start))) {
+        if (isPointPossible(neighborsOfPoint.get(3)) && isPointNotOccupied(gameMap.get(neighborsOfPoint.get(3)), targetOnTheMap)) {
             neighborsWithDirections.put("up", neighborsOfPoint.get(3));
         }
         return neighborsWithDirections;
@@ -178,14 +174,14 @@ public class Simulation {
     }
 
 
-    public List<Point> getValidNeighborsOfPoints(Point pointOfCreature, Map<Point, Entity> gameMap) {
+    public <T> List<Point> getValidNeighborsOfPoints(Point pointOfCreature, Map<Point, Entity> gameMap, Class<T> targetOnTheMap) {
         List<Point> allNeighborsOfPoint = getNeighborsOfPoint(pointOfCreature);
 
         List<Point> validPoints = new ArrayList<>();
 
         for (Point point : allNeighborsOfPoint) {
             //todo тут основная проблема тут мы должны передать creature.class но тут проблема null вылетает
-            if (isPointPossible(point) && isPointNotOccupied(gameMap.get(point), gameMap.get(pointOfCreature))) {
+            if (isPointPossible(point) && isPointNotOccupied(gameMap.get(point), targetOnTheMap)) {
                 validPoints.add(point);
             }
         }
@@ -197,18 +193,25 @@ public class Simulation {
         return (point.getX() >= 0 && point.getY() >= 0 && point.getX() <= maxLengthX - 1 && point.getY() <= maxLengthY - 1);
     }
 
-    public boolean isPointNotOccupied(Entity entity, Entity entityOnPoint) {
+    public <T> boolean isPointNotOccupied(Entity entity, Class<T> targetOnTheMap) {
         //entity - это существо или не существо на точке
         //нам нужно в зависимости от нашего существа на начальной точки разделить куда надо идти
         //todo fix because fox can't find pig it skips it
         //todo отрефакторить этот метод и передумать его, никак нельзя сделать его гибким
         //todo нужно делать гибко, потому что добавим существ и как мы будем искать
-        //todo проблема сейчас при null  у нас вылает ошибка null pointer exception
-
-        if (entity instanceof Fox || entity instanceof Rock || entity instanceof Tree || entity instanceof Pig) {
-            return false;
+        //todo проблема сейчас при null  у нас вылетает ошибка null pointer exception
+        if (targetOnTheMap.equals(Apple.class)) {
+            if (entity instanceof Fox || entity instanceof Rock || entity instanceof Tree || entity instanceof Pig) {
+                return false;
+            } else {
+                return true;
+            }
         } else {
-            return true;
+            if (entity instanceof Fox || entity instanceof Rock || entity instanceof Tree || entity instanceof Apple) {
+                return false;
+            } else {
+                return true;
+            }
         }
     }
 
@@ -219,7 +222,7 @@ public class Simulation {
         do {
             int counter = 0;
             for (Entity entity : entities) {
-                if (entity instanceof Apple) {
+                if (entity instanceof Pig) {
                     ++counter;
                 }
             }
@@ -228,7 +231,7 @@ public class Simulation {
             } else {
                 wordSimulation(gameMap);
                 try {
-                    Thread.sleep(1500);
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
@@ -238,5 +241,4 @@ public class Simulation {
             }
         } while (true);
     }
-
 }
