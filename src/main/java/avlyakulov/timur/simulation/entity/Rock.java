@@ -1,6 +1,4 @@
-package avlyakulov.timur.simulation.objects.unmovable;
-
-import avlyakulov.timur.simulation.entity.Entity;
+package avlyakulov.timur.simulation.entity;
 
 public class Rock extends Entity {
     private final int NUMBER_OF_ROCK = 4;

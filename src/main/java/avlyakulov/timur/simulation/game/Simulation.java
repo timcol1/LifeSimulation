@@ -2,12 +2,12 @@ package avlyakulov.timur.simulation.game;
 
 import avlyakulov.timur.simulation.entity.Entity;
 import avlyakulov.timur.simulation.entity.Point;
-import avlyakulov.timur.simulation.objects.animals.Creature;
-import avlyakulov.timur.simulation.objects.animals.Fox;
-import avlyakulov.timur.simulation.objects.animals.Pig;
-import avlyakulov.timur.simulation.objects.resource.Apple;
-import avlyakulov.timur.simulation.objects.unmovable.Rock;
-import avlyakulov.timur.simulation.objects.unmovable.Tree;
+import avlyakulov.timur.simulation.entity.Creature;
+import avlyakulov.timur.simulation.entity.Fox;
+import avlyakulov.timur.simulation.entity.Pig;
+import avlyakulov.timur.simulation.entity.Apple;
+import avlyakulov.timur.simulation.entity.Rock;
+import avlyakulov.timur.simulation.entity.Tree;
 
 import java.util.*;
 
@@ -74,7 +74,7 @@ public class Simulation {
         Queue<Point> alreadyVisited = new ArrayDeque<>();
 
         //идея реализации как искать нужный путь к нашей точки
-        // представим что наша точка это 1 1 Искомая точка это 3 0
+        //представим что наша точка это 1 1 искомая точка это 3 0
         //анализируем куда нужно двигаться 3 больше чем i, но 0 меньше чем 1 отсюда и можно обозначить куда двигаться
         // x, y - координаты искомой точки. i, j - текущие координаты существа которое хочет двигаться
         //y > j строго вправо ->

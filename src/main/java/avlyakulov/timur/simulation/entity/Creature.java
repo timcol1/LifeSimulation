@@ -1,7 +1,4 @@
-package avlyakulov.timur.simulation.objects.animals;
-
-import avlyakulov.timur.simulation.entity.Entity;
-import avlyakulov.timur.simulation.entity.Point;
+package avlyakulov.timur.simulation.entity;
 
 import java.util.Map;
 

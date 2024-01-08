@@ -1,0 +1,2 @@
+main-class: avlyakulov.timur.simulation.game.GameMap
+class-path: classes/

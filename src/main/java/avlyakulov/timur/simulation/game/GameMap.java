@@ -2,11 +2,11 @@ package avlyakulov.timur.simulation.game;
 
 import avlyakulov.timur.simulation.entity.Entity;
 import avlyakulov.timur.simulation.entity.Point;
-import avlyakulov.timur.simulation.objects.animals.Fox;
-import avlyakulov.timur.simulation.objects.animals.Pig;
-import avlyakulov.timur.simulation.objects.resource.Apple;
-import avlyakulov.timur.simulation.objects.unmovable.Rock;
-import avlyakulov.timur.simulation.objects.unmovable.Tree;
+import avlyakulov.timur.simulation.entity.Fox;
+import avlyakulov.timur.simulation.entity.Pig;
+import avlyakulov.timur.simulation.entity.Apple;
+import avlyakulov.timur.simulation.entity.Rock;
+import avlyakulov.timur.simulation.entity.Tree;
 
 import java.util.HashMap;
 import java.util.List;

@@ -1,6 +1,4 @@
-package avlyakulov.timur.simulation.objects.resource;
-
-import avlyakulov.timur.simulation.entity.Entity;
+package avlyakulov.timur.simulation.entity;
 
 public class Apple extends Entity {
     private final int NUMBER_OF_APPLE = 4;
