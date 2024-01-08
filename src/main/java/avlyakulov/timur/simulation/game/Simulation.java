@@ -12,10 +12,9 @@ import avlyakulov.timur.simulation.objects.unmovable.Tree;
 import java.util.*;
 
 public class Simulation {
-    //todo отфиксить то что в конце все свиньи становятся в 1 клетку
 
-    private final static int maxLengthX = 10;
-    private final static int maxLengthY = 10;
+    private final static int maxLengthX = 8;
+    private final static int maxLengthY = 8;
 
 
     //как нужно сделать
@@ -180,7 +179,6 @@ public class Simulation {
         List<Point> validPoints = new ArrayList<>();
 
         for (Point point : allNeighborsOfPoint) {
-            //todo тут основная проблема тут мы должны передать creature.class но тут проблема null вылетает
             if (isPointPossible(point) && isPointNotOccupied(gameMap.get(point), targetOnTheMap)) {
                 validPoints.add(point);
             }
@@ -196,10 +194,6 @@ public class Simulation {
     public <T> boolean isPointNotOccupied(Entity entity, Class<T> targetOnTheMap) {
         //entity - это существо или не существо на точке
         //нам нужно в зависимости от нашего существа на начальной точки разделить куда надо идти
-        //todo fix because fox can't find pig it skips it
-        //todo отрефакторить этот метод и передумать его, никак нельзя сделать его гибким
-        //todo нужно делать гибко, потому что добавим существ и как мы будем искать
-        //todo проблема сейчас при null  у нас вылетает ошибка null pointer exception
         if (targetOnTheMap.equals(Apple.class)) {
             if (entity instanceof Fox || entity instanceof Rock || entity instanceof Tree || entity instanceof Pig) {
                 return false;
