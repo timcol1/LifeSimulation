@@ -1,2 +1,2 @@
-main-class: avlyakulov.timur.simulation.game.GameMap
+main-class: avlyakulov.timur.simulation.game.GameStart
 class-path: classes/
