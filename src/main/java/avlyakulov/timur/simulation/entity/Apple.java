@@ -1,7 +1,6 @@
 package avlyakulov.timur.simulation.entity;
 
 public class Apple extends Entity {
-    private final int NUMBER_OF_APPLE = 4;
 
 
     @Override
@@ -11,6 +10,6 @@ public class Apple extends Entity {
 
     @Override
     public int getNumberOfEntity() {
-        return NUMBER_OF_APPLE;
+        return NumberEntity.APPLE.getQuantity();
     }
 }

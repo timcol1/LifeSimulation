@@ -1,8 +1,6 @@
 package avlyakulov.timur.simulation.entity;
 
 public class Rock extends Entity {
-    private final int NUMBER_OF_ROCK = 4;
-
 
     @Override
     public String toString() {
@@ -11,6 +9,6 @@ public class Rock extends Entity {
 
     @Override
     public int getNumberOfEntity() {
-        return NUMBER_OF_ROCK;
+        return NumberEntity.ROCK.getQuantity();
     }
 }

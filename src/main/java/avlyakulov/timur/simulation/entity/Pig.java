@@ -3,7 +3,6 @@ package avlyakulov.timur.simulation.entity;
 import java.util.Map;
 
 public class Pig extends Creature {
-    private final int NUMBER_OF_PIG = 4;
 
     @Override
     public void makeMove(Map<Point, Entity> gameMap, Point pointIterate, Point pointToMove) {
@@ -25,6 +24,6 @@ public class Pig extends Creature {
 
     @Override
     public int getNumberOfEntity() {
-        return NUMBER_OF_PIG;
+        return NumberEntity.PIG.getQuantity();
     }
 }
