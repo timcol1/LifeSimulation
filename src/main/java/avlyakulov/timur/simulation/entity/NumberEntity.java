@@ -1,11 +1,11 @@
 package avlyakulov.timur.simulation.entity;
 
 public enum NumberEntity {
-    APPLE(4),
-    PIG(4),
-    FOX(2),
-    ROCK(4),
-    TREE(4);
+    APPLE(1),//4
+    PIG(1),//4
+    FOX(0),//2
+    ROCK(4),//4
+    TREE(0);//4
 
     private final int quantity;
 

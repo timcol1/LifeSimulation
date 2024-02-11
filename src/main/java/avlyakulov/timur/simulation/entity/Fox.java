@@ -1,20 +1,16 @@
 package avlyakulov.timur.simulation.entity;
 
+import avlyakulov.timur.simulation.game.GameMap;
+
 import java.util.Map;
 
 public class Fox extends Creature {
 
-
     @Override
     public void makeMove(Map<Point, Entity> gameMap, Point pointIterate, Point pointToMove) {
-        Entity fox = gameMap.get(pointIterate);
-        Entity entityOnPoint = gameMap.get(pointToMove);
-        if (entityOnPoint instanceof Pig) {
-            gameMap.remove(pointToMove);
-        }
-        gameMap.put(pointToMove, fox);
-        gameMap.remove(pointIterate);
+        GameMap.makeMove(gameMap, pointIterate, pointToMove);
     }
+
 
     @Override
     public String toString() {
@@ -24,5 +20,10 @@ public class Fox extends Creature {
     @Override
     public int getNumberOfEntity() {
         return NumberEntity.FOX.getQuantity();
+    }
+
+    @Override
+    public Class<Pig> getTargetEntityClass() {
+        return Pig.class;
     }
 }

@@ -1,20 +1,15 @@
 package avlyakulov.timur.simulation.game;
 
-import avlyakulov.timur.simulation.entity.Entity;
-import avlyakulov.timur.simulation.entity.Point;
-import avlyakulov.timur.simulation.entity.Creature;
-import avlyakulov.timur.simulation.entity.Fox;
-import avlyakulov.timur.simulation.entity.Pig;
-import avlyakulov.timur.simulation.entity.Apple;
-import avlyakulov.timur.simulation.entity.Rock;
-import avlyakulov.timur.simulation.entity.Tree;
+import avlyakulov.timur.simulation.entity.*;
 
 import java.util.*;
 
 public class Simulation {
 
-    private final static int maxLengthX = 8;
-    private final static int maxLengthY = 8;
+    private final static int maxLengthX = 3;
+    private final static int maxLengthY = 3;
+
+    private GameMap gameMapUtil;
 
 
     //как нужно сделать
@@ -23,10 +18,15 @@ public class Simulation {
     // и начинаем ее перебирать если мы можем стать туда
 
     public void gameStartSimulation() {
-        GameMap gameMapUtil = new GameMap(maxLengthX, maxLengthY);
-        Map<Point, Entity> gameMap = gameMapUtil.fillMap();
+        gameMapUtil = new GameMap(maxLengthX, maxLengthY);
+        //gameMapUtil.fillMap();
+        Map<Point, Entity> rockIsUp = Map.of(new Point(2, 2), new Pig(), new Point(1, 1), new Rock(), new Point(0, 1), new Apple());
+        Map<Point, Entity> rockIsRight = Map.of(new Point(0, 0), new Pig(), new Point(0, 1), new Rock(), new Point(0, 2), new Apple());
+        Map<Point, Entity> rockIsDown = Map.of(new Point(0, 1), new Pig(), new Point(1, 1), new Rock(), new Point(2, 1), new Apple());
+        Map<Point, Entity> rockIsLeft = Map.of(new Point(0, 2), new Pig(), new Point(0, 1), new Rock(), new Point(0, 0), new Apple());
+        gameMapUtil.fillMap(rockIsUp);
         System.out.println("Simulations begins");
-        startSimulation(gameMapUtil, gameMap);
+        startSimulation(gameMapUtil);
         System.out.println("The simulation is over");
     }
 
@@ -51,21 +51,20 @@ public class Simulation {
     }
 
     public Point forEntityCreatePointToMove(Point pointOfCreature, Map<Point, Entity> gameMap, Creature creature) {
-        // 1 - it is Pig ; 2 - it is Fox
-        int typeOfCreature = checkTypeOfCreature(creature);
+        TypeOfCreature typeOfCreature = checkTypeOfCreature(creature);
         switch (typeOfCreature) {
-            case 1 -> {
+            case PIG -> {
                 return findPointForCreature(pointOfCreature, gameMap, Apple.class);
             }
-            case 2 -> {
+            case FOX -> {
                 return findPointForCreature(pointOfCreature, gameMap, Pig.class);
             }
             default -> throw new RuntimeException("Something went wrong in checking type of animal");
         }
     }
 
-    public int checkTypeOfCreature(Creature creature) {
-        return creature instanceof Pig ? 1 : 2;
+    public TypeOfCreature checkTypeOfCreature(Creature creature) {
+        return creature instanceof Pig ? TypeOfCreature.PIG : TypeOfCreature.FOX;
     }
 
     public <T> Point findPointForCreature(Point pointOfCreature, Map<Point, Entity> gameMap, Class<T> targetOnTheMap) {
@@ -144,9 +143,9 @@ public class Simulation {
             return choosePointWithDirection("right", neighbors);
         } else if (toMove.getY() < start.getY()) {
             return choosePointWithDirection("left", neighbors);
-        } else if (toMove.getY() == start.getY() && toMove.getX() < start.getX()) {
+        } else if (toMove.getY() <= start.getY()) {
             return choosePointWithDirection("up", neighbors);
-        } else if (toMove.getY() == start.getY() && toMove.getX() > start.getX()) {
+        } else if (toMove.getY() >= start.getY()) {
             return choosePointWithDirection("down", neighbors);
         } else {
             throw new RuntimeException("No path was chosen to go something went wrong...");
@@ -210,27 +209,27 @@ public class Simulation {
     }
 
 
-    public void startSimulation(GameMap gameMapUtil, Map<Point, Entity> gameMap) {
-        Collection<Entity> entities = gameMap.values();
-        gameMapUtil.printMap(gameMap);
+    public void startSimulation(GameMap gameMapUtil) {
+        Collection<Entity> entities = gameMapUtil.getGameMap().values();
+        gameMapUtil.printMap();
         do {
             int counter = 0;
             for (Entity entity : entities) {
-                if (entity instanceof Pig) {
+                if (entity instanceof Apple) {
                     ++counter;
                 }
             }
             if (counter == 0) {
                 break;
             } else {
-                wordSimulation(gameMap);
+                wordSimulation(gameMapUtil.getGameMap());
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
                 System.out.println();
-                gameMapUtil.printMap(gameMap);
+                gameMapUtil.printMap();
                 System.out.println();
             }
         } while (true);
