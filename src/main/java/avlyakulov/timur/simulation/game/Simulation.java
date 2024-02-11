@@ -193,18 +193,10 @@ public class Simulation {
     public <T> boolean isPointNotOccupied(Entity entity, Class<T> targetOnTheMap) {
         //entity - это существо или не существо на точке
         //нам нужно в зависимости от нашего существа на начальной точки разделить куда надо идти
-        if (targetOnTheMap.equals(Apple.class)) {
-            if (entity instanceof Fox || entity instanceof Rock || entity instanceof Tree || entity instanceof Pig) {
-                return false;
-            } else {
-                return true;
-            }
+        if (entity == null) {
+            return true;
         } else {
-            if (entity instanceof Fox || entity instanceof Rock || entity instanceof Tree || entity instanceof Apple) {
-                return false;
-            } else {
-                return true;
-            }
+            return targetOnTheMap.isInstance(entity);
         }
     }
 
