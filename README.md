@@ -2,7 +2,9 @@
 
 Simulation is an app that represent the world of animals and not living belings.
 
-Project from this [course](https://zhukovsd.github.io/java-backend-learning-course/)
+<!-- Project from this [course](https://zhukovsd.github.io/java-backend-learning-course/) -->
+
+
 
 ##### Where there are
 
